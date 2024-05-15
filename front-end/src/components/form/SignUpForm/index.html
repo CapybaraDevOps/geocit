@@ -1,0 +1,120 @@
+<div id="registration">
+  <form novalidate class="md-layout-row md-gutter" @submit.prevent="validateCredentials()">
+    <md-card class="md-flex50 md-flex-small-100">
+      <md-card-content>
+        <div class="md-layout-row md-layout-wrap md-gutter">
+          <div class="md-flex md-flex-small-100">
+            <md-field :class="getValidationClass('login')">
+              <label for="r-login">{{ $t('label.login') }}</label>
+
+              <md-input name="login" id="r-login" autocomplete="off" v-model.trim="form.login" :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.login.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.login.minLength">{{ $t('error.min_4_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.login.maxLength">{{ $t('error.max_16_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.login.LoginValidator">{{ $t('error.not_login') }}</span>
+            </md-field>
+          </div>
+
+          <div class="flex md-flex-small-100">
+            <md-field :class="getValidationClass('password')">
+              <label for="r-password">{{ $t('label.password') }}</label>
+
+              <md-input name="password" id="r-password" autocomplete="off" type="password" v-model.trim="form.password"
+                        :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.password.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.password.minLength">{{ $t('error.min_8_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.password.PasswordValidator">
+                {{ $t('error.not_password') }}
+              </span>
+            </md-field>
+          </div>
+
+          <div class="flex md-flex-small-100">
+            <md-field :class="getValidationClass('confirmPassword')">
+              <label for="confirm-password">{{ $t('label.confirm_password') }}</label>
+
+              <md-input name="confirm_password" id="confirm-password" autocomplete="off" type="password"
+                        v-model.trim="form.confirmPassword" :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.confirmPassword.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.confirmPassword.sameAs">
+                {{ $t('error.different_passwords') }}
+              </span>
+            </md-field>
+          </div>
+
+          <div class="flex md-flex-small-100">
+            <md-field :class="getValidationClass('email')">
+              <label for="email">{{ $t('label.email') }}</label>
+
+              <md-input name="email" id="email" autocomplete="email" type="email" v-model.trim="form.email"
+                        :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.email.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.email.email">{{ $t('error.not_email') }}</span>
+            </md-field>
+          </div>
+
+          <div class="flex md-flex-small-100">
+            <md-field :class="getValidationClass('name')">
+              <label for="name">{{ $t('label.first_name') }}</label>
+
+              <md-input name="name" id="name" autocomplete="name" type="name" v-model.trim="form.name"
+                        :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.name.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.name.minLength">{{ $t('error.min_1_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.name.maxLength">{{ $t('error.max_16_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.name.NameValidator">{{ $t('error.not_first_name') }}</span>
+            </md-field>
+          </div>
+
+          <div class="flex md-flex-small-100">
+            <md-field :class="getValidationClass('surname')">
+              <label for="surname">{{ $t('label.last_name') }}</label>
+
+              <md-input name="surname" id="surname" autocomplete="surname" type="surname" v-model.trim="form.surname"
+                        :disabled="sending"/>
+
+              <span class="md-error" v-if="!$v.form.surname.required">{{ $t('error.required') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.surname.minLength">{{ $t('error.min_1_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.surname.maxLength">{{ $t('error.max_32_char') }}</span>
+
+              <span class="md-error" v-else-if="!$v.form.surname.NameValidator">{{ $t('error.not_last_name') }}</span>
+            </md-field>
+          </div>
+
+          <md-chip class="md-accent error" v-for="err in errors" :key="err">{{ err }}</md-chip>
+        </div>
+      </md-card-content>
+
+      <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+
+      <md-card-actions>
+        <md-button type="button" class="md-primary" to="/">{{ $t('button.cancel') }}</md-button>
+
+        <md-button type="submit" class="md-raised md-primary" :disabled="sending">{{ $t('button.sign_up') }}</md-button>
+      </md-card-actions>
+    </md-card>
+  </form>
+
+  <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="showSnackBar" md-persistent>
+    <span>{{ $t('message.successful_register') }}</span>
+
+    <md-button class="md-primary" @click="snackBarAction()">OK</md-button>
+  </md-snackbar>
+</div>

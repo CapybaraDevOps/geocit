@@ -1,0 +1,38 @@
+<div>
+  <md-app md-waterfall class="headers">
+	<md-app-toolbar class="md-primary md-large">
+	  <div class="buttonBack">
+		<md-button class="md-icon-button" @click="backToAdmin">
+		  <md-icon>arrow_back</md-icon>
+		</md-button>
+	  </div>
+	  <header-page></header-page>
+	</md-app-toolbar>
+  </md-app>
+  <!--<h1>{{$t('label.chatRoom')}}</h1>-->
+  <div class="heighWrapper">
+	<div class="messageBl" id="style-6">
+	  <div class="messageList">
+		<div v-for="message in messages" class="row">
+		  <div v-if="message.authorId === adminId" >
+			<message :text="message.text" :author="message.author" class="innerMes"></message>
+		  </div>
+		  <div v-else>
+			<message :text="message.text" :author="message.author" class="myMes"></message>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <div class="footerBl">
+	<div class="messageManagment">
+	  <md-field class="messageText">
+		<label>{{$t('label.messageHint')}}</label>
+		<md-textarea v-model="newMessageText" md-counter=275></md-textarea>
+	  </md-field>
+	  <div class="messageSend">
+		<md-button class="md-raised" @click="sendMes">{{$t('button.sendMessage')}}</md-button>
+	  </div>
+	</div>
+  </div>
+</div>

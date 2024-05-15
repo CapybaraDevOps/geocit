@@ -1,0 +1,11 @@
+<div class="notification">
+  <md-app>
+	<md-app-content>
+	  <p>{{ $t('label.notifications') }}</p>
+	  <div v-for="user in users" class="row">
+		<md-button style="display: inline-block;" @click="answer(user.userId, user.issueId)" v-if="user.waiting">{{ $t('button.answerNotification') }} {{user.login}}</md-button>
+		<md-button style="display: inline-block;" @click="markAsReaded(user.userId, user.issueId)" v-else>{{user.login}} {{ $t('button.closeNotification') }}</md-button>
+	  </div>
+	</md-app-content>
+  </md-app>
+</div>

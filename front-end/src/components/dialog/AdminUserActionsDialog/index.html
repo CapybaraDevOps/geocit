@@ -1,0 +1,48 @@
+<div id="admin-user-actions-dialog">
+  <md-dialog :md-active.sync="showDialog">
+    <md-dialog-title>{{ $t('label.management') }}</md-dialog-title>
+
+    <md-list>
+      <md-list-item md-expand>
+        <md-icon>security</md-icon>
+        <span class="md-list-item-text">{{ $t('button.manage') }}</span>
+        <md-card slot="md-expand"
+                 v-if="user && user.type !== 'ROLE_BANNED' && currentUser && currentUser.type === 'ROLE_MASTER' && user.id !== currentUser.id">
+          <md-card-header>{{ $t('label.admin_restrictions') }}</md-card-header>
+
+          <md-card-content>
+            <md-button class="md-raised md-primary" v-if="user && user.type !== 'ROLE_ADMIN'" @click="grantUser(true)">
+              {{ $t('button.grant') }}
+            </md-button>
+
+            <md-button class="md-raised md-primary" v-else @click="grantUser(false)">
+              {{ $t('button.revoke') }}
+            </md-button>
+          </md-card-content>
+        </md-card>
+      </md-list-item>
+
+      <md-list-item @click="showUserIssues(user)">
+        <md-icon>place</md-icon>
+        <span class="md-list-item-text">{{ $t('button.view_user_issues') }}</span>
+      </md-list-item>
+
+      <div
+        v-if="user && (user.type !== 'ROLE_ADMIN' && user.type !== 'ROLE_MASTER' || (currentUser && currentUser.type === 'ROLE_MASTER')) && user.id !== currentUser.id">
+        <md-list-item id="ban" v-if="user && user.type !== 'ROLE_BANNED'" @click="banUser(true)">
+          <md-icon>gavel</md-icon>
+          <span class="md-list-item-text">{{ $t('button.ban') }}</span>
+        </md-list-item>
+
+        <md-list-item id="unban" v-else @click="banUser(false)">
+          <md-icon>gavel</md-icon>
+          <span class="md-list-item-text">{{ $t('button.unban') }}</span>
+        </md-list-item>
+      </div>
+    </md-list>
+
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="showDialog = false">{{ $t('button.close') }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+</div>

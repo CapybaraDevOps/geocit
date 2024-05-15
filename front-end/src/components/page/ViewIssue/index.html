@@ -1,0 +1,63 @@
+<div>
+  <md-app md-waterfall>
+    <md-app-toolbar class="md-primary md-large">
+      <header-page></header-page>
+    </md-app-toolbar>
+
+    <md-app-content class="app-content">
+      <div class="md-layout md-gutter new">
+        <div class="md-layout-item md-size-8">
+
+        </div>
+        <div id="parent" class="md-layout-item md-size-45 container">
+          <div class="md-display-1">
+            {{title}}
+          </div>
+          <div class="md-content md-theme-default">
+            <br>
+            <img :src="imageSrc">
+            <p v-html="text" style="white-space: pre-line;">
+              {{text}}</p>
+            <br><br><br><br><br>
+          </div>
+          <div id="child" class="content">
+            <a @click="like">
+              <img v-if="isLiked" src="./static/like_active.png" v-my-tooltip.bottom-center="$t('label.cancel_like')"
+                   height="32"
+                   width="32"/>
+              <img v-if="!isLiked" src="./static/like_not_active.png" v-my-tooltip.bottom-center="$t('label.add_like')"
+                   height="32"
+                   width="32"/>
+            </a>
+            {{countLike}}
+
+            <a @click="dislike()">
+              <img v-if="!isUnliked" src="./static/dislike_not_active.png"
+                   v-my-tooltip.bottom-center="$t('label.add_dislike')"
+                   height="32"
+                   width="32"/>
+              <img v-if="isUnliked" src="./static/dislike_active.png"
+                   v-my-tooltip.bottom-center="$t('label.cancel_dislike')"
+                   height="32" width="32"/>
+            </a>
+            {{countDislike}}
+            <div class="openChatDiv">
+              <openChat :issueId="issueId" :userId="userId"></openChat>
+            </div>
+          </div>
+        </div>
+
+        <div class="md-layout-item md-size-40">
+          <div id="issueMap"></div>
+        </div>
+        <div class="md-layout-item md-size-7"></div>
+      </div>
+    </md-app-content>
+  </md-app>
+
+  <md-snackbar :md-duration=4000 :md-active.sync="showSnackBar" md-persistent>
+    <span>{{ $t('label.add_vote_fail') }}</span>
+    <md-button class="md-primary" to="auth/login">{{ $t('label.sign_in') }}</md-button>
+  </md-snackbar>
+</div>
+

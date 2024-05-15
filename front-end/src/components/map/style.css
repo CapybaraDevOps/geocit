@@ -1,0 +1,98 @@
+#map {
+  margin: auto;
+  width:  100%;
+  height: 100%;
+  color: #000000;
+}
+#root {
+  height: 100%;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-content {
+  margin: 0 auto;
+  width: 90%;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+@media (min-width: 40em) {
+  .modal-content {
+	margin: 0 auto;
+	width: 50%;
+  }
+}
+
+@media (min-width: 75em) {
+  .modal-content {
+	margin: 0 auto;
+	width: 25%;
+  }
+}
+
+.close {
+  color: #ccc;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#desc {
+  resize: none;
+}
+
+#preview {
+  max-height: 200px;
+  min-height: 200px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.logo {
+  margin-top:20px;
+}
+
+.issuesByMarker {
+  max-height: 400px;
+}
+
+.close1 {
+  color: #ccc;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.md-snackbar .md-primary {
+  background-color: #ffffff;
+}

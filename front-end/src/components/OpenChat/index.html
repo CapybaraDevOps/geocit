@@ -1,0 +1,13 @@
+<div v-if="userType">
+  <div class="center" v-if="!waiting">
+	<md-button @click="openChat" id="button"><md-icon>chat</md-icon> {{ $t('button.openChat') }}</md-button>
+  </div>
+  <div class="center" v-else-if="waiting && !noAdmins">
+	<p id="hint">{{ $t('label.waitHint') }}</p>
+	<div id="loader"></div>
+	<md-button @click="cancelWaiting" id="button">{{ $t('button.cancel') }}</md-button>
+  </div>
+  <div class="center" v-else>
+	<p>{{ $t('label.noAdminAnswer') }}</p>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+.md-display-1 {
+  text-align: center;
+}
+.container {
+  position: relative;
+}
+
+.container .content
+{
+  position: absolute;
+  bottom: 0px;
+}
+img {
+  cursor: pointer;
+}
+
+#issueMap {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  height: 400px
+}
+
+@media (min-width:100px) and (max-width:768px) {
+  #issueMap {
+	position: -webkit-sticky;
+	position: sticky;
+	width: 100%;
+	height: 350px
+  }
+}
+
+@media (min-width:100px) and (max-width:1024px) {
+  #issueMap {
+	position: -webkit-sticky;
+	position: sticky;
+	width: 100%;
+	height: 350px
+  }
+}
+
+.app-content {
+  overflow: hidden;
+  min-height: 80vh;
+}
+
+.md-snackbar .md-primary {
+  background-color: #ffffff;
+}
+
+a:hover {
+  text-decoration: none
+;
+}

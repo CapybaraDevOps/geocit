@@ -1,0 +1,672 @@
+databaseChangeLog:
+- changeSet:
+    id: 1516657572581-1
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: images_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: src
+            type: VARCHAR(128)
+        - column:
+            constraints:
+              nullable: false
+            name: type
+            type: IMAGE_TYPE
+        - column:
+            constraints:
+              nullable: false
+            name: hash
+            type: VARCHAR(32)
+        tableName: images
+- changeSet:
+    id: 1516657572581-2
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: issue_types_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(16)
+        tableName: issue_types
+- changeSet:
+    id: 1516657572581-3
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: issues_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: map_marker_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: author_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: VARCHAR(32)
+        - column:
+            constraints:
+              nullable: false
+            name: text
+            type: VARCHAR(2048)
+        - column:
+            constraints:
+              nullable: true
+            name: image_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: false
+            name: closed
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: false
+            name: hidden
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: now()
+            name: created_at
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: now()
+            name: updated_at
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        tableName: issues
+- changeSet:
+    id: 1516657572581-4
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: issue_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: voter_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: true
+            name: vote
+            type: BOOLEAN
+        tableName: issues_votes
+- changeSet:
+    id: 1516657572581-5
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: map_markers_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: lat
+            type: FLOAT8
+        - column:
+            constraints:
+              nullable: false
+            name: lng
+            type: FLOAT8
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: false
+            name: hidden
+            type: BOOLEAN
+        tableName: map_markers
+- changeSet:
+    id: 1516657572581-6
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: message_pkey
+            name: id
+            type: SERIAL
+        - column:
+            name: text
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            name: userid
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: issueid
+            type: INT
+        - column:
+            name: date
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: authorid
+            type: INT
+        - column:
+            constraints:
+              nullable: true
+            name: msgid
+            type: INT
+        tableName: message
+- changeSet:
+    id: 1516657572581-7
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: login
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            name: userid
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: issueid
+            type: INT
+        - column:
+            name: text
+            type: VARCHAR
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: notification_id_pk
+            name: id
+            type: SERIAL
+        - column:
+            name: waiting
+            type: BOOLEAN
+        tableName: notification
+- changeSet:
+    id: 1516657572581-8
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: recovery_tokens_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: token
+            type: VARCHAR(32)
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INT
+        - column:
+            name: expires_at
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        tableName: recovery_tokens
+- changeSet:
+    id: 1516657572581-9
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: userid
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: providerid
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: provideruserid
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: rank
+            type: INT
+        - column:
+            name: displayname
+            type: VARCHAR(255)
+        - column:
+            name: profileurl
+            type: VARCHAR(512)
+        - column:
+            name: imageurl
+            type: VARCHAR(512)
+        - column:
+            constraints:
+              nullable: false
+            name: accesstoken
+            type: VARCHAR(512)
+        - column:
+            name: secret
+            type: VARCHAR(512)
+        - column:
+            name: refreshtoken
+            type: VARCHAR(512)
+        - column:
+            name: expiretime
+            type: BIGINT
+        tableName: userconnection
+- changeSet:
+    id: 1516657572581-10
+    author: softserveinc (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: login
+            type: VARCHAR(16)
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ROLE_USER
+            name: type
+            type: USER_TYPE
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(256)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(64)
+        - column:
+            name: image_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ' '
+            name: name
+            type: VARCHAR(16)
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ' '
+            name: surname
+            type: VARCHAR(32)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: failed_auth_count
+            type: INT
+        tableName: users
+- changeSet:
+    id: 1516657572581-11
+    author: softserveinc (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: issue_id, voter_id
+        constraintName: issues_votes_pkey
+        tableName: issues_votes
+- changeSet:
+    id: 1516657572581-12
+    author: softserveinc (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: userid, providerid, provideruserid
+        constraintName: userconnection_pkey
+        tableName: userconnection
+- changeSet:
+    id: 1516657572581-13
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: hash
+        constraintName: images_hash_key
+        tableName: images
+- changeSet:
+    id: 1516657572581-14
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: src
+        constraintName: images_src_key
+        tableName: images
+- changeSet:
+    id: 1516657572581-15
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: issue_types_name_key
+        tableName: issue_types
+- changeSet:
+    id: 1516657572581-16
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: token
+        constraintName: recovery_tokens_token_key
+        tableName: recovery_tokens
+- changeSet:
+    id: 1516657572581-17
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: hash
+        constraintName: unique_image_hash
+        tableName: images
+- changeSet:
+    id: 1516657572581-18
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: unique_image_id
+        tableName: images
+- changeSet:
+    id: 1516657572581-19
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: src
+        constraintName: unique_image_src
+        tableName: images
+- changeSet:
+    id: 1516657572581-20
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: unique_issue_id
+        tableName: issues
+- changeSet:
+    id: 1516657572581-21
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: issue_id, voter_id
+        constraintName: unique_issue_vote_id
+        tableName: issues_votes
+- changeSet:
+    id: 1516657572581-22
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: unique_map_marker_id
+        tableName: map_markers
+- changeSet:
+    id: 1516657572581-23
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: lat, lng
+        constraintName: unique_map_marker_lat_lng
+        tableName: map_markers
+- changeSet:
+    id: 1516657572581-24
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: unique_user_email
+        tableName: users
+- changeSet:
+    id: 1516657572581-25
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: unique_user_id
+        tableName: users
+- changeSet:
+    id: 1516657572581-26
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: login
+        constraintName: unique_user_login
+        tableName: users
+- changeSet:
+    id: 1516657572581-27
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: users_email_key
+        tableName: users
+- changeSet:
+    id: 1516657572581-28
+    author: softserveinc (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: login
+        constraintName: users_login_key
+        tableName: users
+- changeSet:
+    id: 1516657572581-29
+    author: softserveinc (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: userid
+        - column:
+            name: providerid
+        - column:
+            name: rank
+        indexName: userconnectionrank
+        tableName: userconnection
+        unique: true
+- changeSet:
+    id: 1516657572581-30
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: issues
+        constraintName: issues_author_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: users
+- changeSet:
+    id: 1516657572581-31
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: image_id
+        baseTableName: issues
+        constraintName: issues_image_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: images
+- changeSet:
+    id: 1516657572581-32
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: map_marker_id
+        baseTableName: issues
+        constraintName: issues_map_marker_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: map_markers
+- changeSet:
+    id: 1516657572581-33
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: type_id
+        baseTableName: issues
+        constraintName: issues_type_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: issue_types
+- changeSet:
+    id: 1516657572581-34
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: issue_id
+        baseTableName: issues_votes
+        constraintName: issues_votes_issue_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: issues
+- changeSet:
+    id: 1516657572581-35
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: voter_id
+        baseTableName: issues_votes
+        constraintName: issues_votes_voter_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: users
+- changeSet:
+    id: 1516657572581-36
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: recovery_tokens
+        constraintName: recovery_tokens_user_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: users
+- changeSet:
+    id: 1516657572581-37
+    author: softserveinc (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: image_id
+        baseTableName: users
+        constraintName: users_image_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: CASCADE
+        onUpdate: CASCADE
+        referencedColumnNames: id
+        referencedTableName: images
+- changeSet:
+    id: 1516657572581-38
+    author: softserveinc (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ''
+            name: registration_token
+            type: varchar(32 BYTE)
+        tableName: users
+- changeSet:
+    id: 1516972824887-1
+    author: softserveinc (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: blocking_expires_at
+            type: timestamp(29, 6)
+        tableName: users

@@ -1,0 +1,19 @@
+<div id="social-authorization">
+  <form :action="getServerAddress() + '/signin/facebook'" method="post">
+	<button type="submit" class="btn btn-block btn-social btn-facebook"
+			style="margin: 4px; width: calc(100% - 8px); color: #fff">
+    <!--<span class="fa fa-facebook"></span>-->
+
+	  {{ $t('button.sign_in_fb') }}
+	</button>
+  </form>
+
+  <form :action="getServerAddress() + '/signin/google'" method="post">
+	<button type="submit" class="btn btn-block btn-social btn-google"
+			style="margin: 4px; width: calc(100% - 8px); color: #fff">
+    <!--<span class="fa fa-google"></span>-->
+
+	  {{ $t('button.sign_in_gp') }}
+	</button>
+  </form>
+</div>

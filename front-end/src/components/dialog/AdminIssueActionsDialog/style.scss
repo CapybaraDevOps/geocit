@@ -1,0 +1,17 @@
+.md-dialog {
+  max-width: 768px;
+}
+
+.md-card * {
+  margin: 8px;
+  z-index: 999999;
+  cursor: default;
+}
+
+#close * {
+  color: #ff3333;
+}
+
+#open * {
+  color: #aaaaaa;
+}

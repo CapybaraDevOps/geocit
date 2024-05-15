@@ -1,0 +1,66 @@
+<div id="admin-issues-page">
+  <div id="buttons" v-if="totalPages > 1">
+    <md-button class="md-dense md-raised md-primary" :disabled="page === 0" @click="load(--page)">
+      {{ $t('button.prev') }}
+    </md-button>
+
+    <md-button class="md-dense md-raised md-primary" :disabled="page === totalPages - 1 || totalPages === 0"
+               @click="load(++page)">
+      {{ $t('button.next') }}
+    </md-button>
+  </div>
+
+  <md-table v-model="searched" md-sort="id" md-card>
+    <md-table-toolbar>
+      <h1 class="md-title">{{ $t('label.issues') }}</h1>
+
+      <md-field md-clearable class="md-toolbar-section-end">
+        <md-input :placeholder="$t('label.search')" v-model.trim="searchString" @input="search"/>
+      </md-field>
+
+      <md-field class="type-filter">
+        <label for="type-filter-select">{{ $t('label.filter_by_type') }}</label>
+
+        <md-select id="type-filter-select" v-model="issueType" :placeholder="$t('label.filter_by_type')"
+                   @md-selected="filterByType()">
+          <md-option value="ALL">{{ $t('type.ALL') }}</md-option>
+          <md-option value="opened">{{ $t('type.OPENEDPROBLEM') }}</md-option>
+          <md-option value="closed">{{ $t('type.CLOSEDPROBLEM') }}</md-option>
+          <md-option value="visible">{{ $t('type.VISIBLE') }}</md-option>
+          <md-option value="hidden">{{ $t('type.HIDDEN') }}</md-option>
+        </md-select>
+      </md-field>
+
+      <md-field class="type-filter">
+        <label for="type-filter-select">{{ $t('label.filter_by_type') }}</label>
+
+        <md-select id="type-filter-select" v-model="issueType" :placeholder="$t('label.filter_by_type')"
+                   @md-selected="filterByType()">
+          <md-option value="ALL">{{ $t('type.ALL') }}</md-option>
+          <md-option value="PROBLEM">{{ $t('label.issue_type_problem') }}</md-option>
+          <md-option value="INFO">{{ $t('label.issue_type_info') }}</md-option>
+          <md-option value="FEEDBACK">{{ $t('label.issue_type_feedback') }}</md-option>
+        </md-select>
+      </md-field>
+    </md-table-toolbar>
+
+    <md-table-empty-state :md-label="$t('label.no_issues_found')"></md-table-empty-state>
+
+    <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="single" @click="onSelect(item)">
+      <md-table-cell :md-label="$t('label.title')" md-sort-by="title">{{ item.title }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.text')" md-sort-by="text">{{ item.text }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.author')" md-sort-by="author.login">{{ item.author.login }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.createdAt')" md-sort-by="createdAt">{{ item.createdAt }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.updatedAt')" md-sort-by="updatedAt">{{ item.updatedAt }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.type')">{{ item.type.name }}</md-table-cell>
+      <md-table-cell :md-label="$t('label.closed')">
+        {{ item.closed ? $t('label.yes') : $t('label.no') }}
+      </md-table-cell>
+      <md-table-cell :md-label="$t('label.hidden')">
+        {{ item.hidden ? $t('label.yes') : $t('label.no') }}
+      </md-table-cell>
+    </md-table-row>
+  </md-table>
+
+  <admin-issue-actions-dialog ref="aIssueActionsDialog"></admin-issue-actions-dialog>
+</div>

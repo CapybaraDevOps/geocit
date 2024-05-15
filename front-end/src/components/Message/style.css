@@ -1,0 +1,10 @@
+.message{
+  margin-bottom: 8px;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 1px 4px;
+}
+.text{
+  padding: 5px;
+  margin: 0px;
+}

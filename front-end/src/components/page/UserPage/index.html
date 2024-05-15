@@ -1,0 +1,126 @@
+<div id="user-page">
+  <md-app md-mode="reveal">
+    <md-app-toolbar class="md-primary">
+      <header-page></header-page>
+    </md-app-toolbar>
+
+    <md-app-content>
+      <div id="content">
+        <div class="md-headline">
+          <span @mouseover="avatarHovered = true" @mouseleave="avatarHovered = false" @click="fileInputClick()">
+            <md-avatar class="md-avatar-icon md-large md-accent">
+              <transition-group name="fade" mode="out-in">
+                <img :src="getServerAddress() + '/users/image/' + (user && user.id)" alt="Avatar"
+                     v-show="!avatarHovered && user && user.image" id="avatar" key="img">
+
+                <md-ripple v-show="!avatarHovered && user && !user.image" key="initials">
+                  {{ user && user.initials }}
+                </md-ripple>
+
+                <md-ripple v-show="avatarHovered" key="upl"><md-icon>file_upload</md-icon></md-ripple>
+              </transition-group>
+
+              <input id="fileInput" type="file" style="display:none" @change="updateImage($event)"/>
+            </md-avatar>
+          </span>
+
+          <div id="display-name" v-if="!editMode">{{ user && (user.name + ' ' + user.surname) }}</div>
+
+          <div id="edit" v-else>
+            <div class="flex md-flex-small-100">
+              <md-field :class="getValidationClass('name')">
+                <label for="name">{{ $t('label.first_name') }}</label>
+
+                <md-input name="name" id="name" autocomplete="name" type="name" v-model.trim="user.name"
+                          :disabled="sending"/>
+
+                <span class="md-error" v-if="!$v.user.name.required">{{ $t('error.required') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.name.minLength">{{ $t('error.min_1_char') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.name.maxLength">{{ $t('error.max_16_char') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.name.NameValidator">{{ $t('error.not_first_name') }}</span>
+              </md-field>
+            </div>
+
+            <div class="flex md-flex-small-100">
+              <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+
+              <md-field :class="getValidationClass('surname')">
+                <label for="surname">{{ $t('label.last_name') }}</label>
+
+                <md-input name="surname" id="surname" autocomplete="surname" type="surname" v-model.trim="user.surname"
+                          :disabled="sending"/>
+
+                <span class="md-error" v-if="!$v.user.surname.required">{{ $t('error.required') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.surname.minLength">{{ $t('error.min_1_char') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.surname.maxLength">{{ $t('error.max_32_char') }}</span>
+
+                <span class="md-error" v-else-if="!$v.user.surname.NameValidator">{{ $t('error.not_last_name') }}</span>
+              </md-field>
+            </div>
+
+            <md-snackbar md-position="center" :md-duration="Infinity" :md-active.sync="error" md-persistent>
+              <span>error</span>
+
+              <md-button class="md-primary">OK</md-button>
+            </md-snackbar>
+          </div>
+
+          <div class="pull-right" v-if="user && getLocalUser().id === user.id">
+            <md-button @click="edit()">{{ $t('button.edit_user_info') }}</md-button>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <span class="md-caption">{{ $t('label.login') }}</span>
+
+          <span class="md-body-2">{{ user && user.login }}</span>
+
+          <md-divider></md-divider>
+        </div>
+
+        <div class="info-block" v-if="user && getLocalUser().id === user.id">
+          <md-subheader>{{ $t('label.contact_info') }}</md-subheader>
+
+          <span class="md-caption">{{ $t('label.email') }}</span>
+
+          <span class="md-body-2">{{ user && user.email }}</span>
+
+          <md-divider></md-divider>
+
+          <span class="md-caption">{{ $t('label.social_accounts') }}</span>
+
+          <md-button disabled v-if="user.facebookConnected">
+            fb connected
+          </md-button>
+
+          <form v-else :action="getServerAddress() + '/signin/facebook'" method="post">
+            <button type="submit" class="btn btn-block btn-social btn-facebook"
+                    style="margin: 4px; width: calc(100% - 8px); color: #fff">
+              <span class="fa fa-facebook"></span>
+
+              {{ $t('button.connect_fb') }}
+            </button>
+          </form>
+
+          <md-button disabled v-if="user.googleConnected">
+            g+ connected
+          </md-button>
+
+          <form v-else :action="getServerAddress() + '/signin/google'" method="post">
+            <button type="submit" class="btn btn-block btn-social btn-google"
+                    style="margin: 4px; width: calc(100% - 8px); color: #fff">
+              <span class="fa fa-google"></span>
+
+              {{ $t('button.connect_gp') }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </md-app-content>
+  </md-app>
+</div>

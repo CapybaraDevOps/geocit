@@ -1,0 +1,23 @@
+#social-login {
+  width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 500px;
+  margin: auto;
+}
+
+.md-chip.md-accent.error {
+  max-width: 100%;
+  margin: 2px auto;
+  white-space: normal;
+  height: auto;
+  text-align: center;
+  color: #fff;
+  background-color: #ff3333;
+}

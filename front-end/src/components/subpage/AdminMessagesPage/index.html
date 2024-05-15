@@ -1,0 +1,23 @@
+<div id="admin-messages-page">
+  <md-table v-model="chatRooms" md-sort="id" md-card>
+    <md-table-toolbar>
+      <h1 class="md-title">{{ $t('label.messages') }}</h1>
+
+      <md-field md-clearable class="md-toolbar-section-end">
+        <md-input :placeholder="$t('label.search')" v-model="searchString" @input="searchOnTable" />
+      </md-field>
+    </md-table-toolbar>
+
+    <md-table-empty-state :md-label="$t('label.no_users_found')"></md-table-empty-state>
+
+    <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="single" @md-selected="onSelect">
+      <md-table-cell :md-label="$t('label.login')">{{ item.login }}</md-table-cell>
+      <md-table-cell md-label="Title issue">{{ item.issueTitle }}</md-table-cell>
+      <md-table-cell md-label="userID">{{ item.userId }}</md-table-cell>
+      <md-table-cell md-label="issueID">{{ item.issueId }}</md-table-cell>
+    </md-table-row>
+  </md-table>
+
+  <admin-user-actions-dialog ref="aUserActionsDialog"></admin-user-actions-dialog>
+</div>
+

@@ -1,0 +1,36 @@
+<div id="admin-issue-actions-dialog">
+  <md-dialog :md-active.sync="showDialog">
+    <md-dialog-title>{{ $t('label.management') }}</md-dialog-title>
+
+    <md-list>
+      <div v-if="issue && issue.type.name.toLowerCase() === 'PROBLEM'.toLowerCase()">
+        <md-list-item id="close" v-if="issue && !issue.closed" @click="closeIssue(true)">
+          <md-icon>gavel</md-icon>
+          <span class="md-list-item-text">{{ $t('button.close_issue') }}</span>
+        </md-list-item>
+        <md-list-item id="open" v-else @click="closeIssue(false)">
+          <md-icon>gavel</md-icon>
+          <span class="md-list-item-text">{{ $t('button.open_issue') }}</span>
+        </md-list-item>
+      </div>
+
+      <md-list-item id="hide" v-if="issue && !issue.hidden" @click="hideIssue(true)">
+        <md-icon>highlight_off</md-icon>
+        <span class="md-list-item-text">{{ $t('button.hide_issue') }}</span>
+      </md-list-item>
+      <md-list-item id="show" v-else @click="hideIssue(false)">
+        <md-icon>offline_pin</md-icon>
+        <span class="md-list-item-text">{{ $t('button.show_issue') }}</span>
+      </md-list-item>
+
+      <md-list-item id="delete" @click="deleteIssue()">
+        <md-icon>delete_forever</md-icon>
+        <span class="md-list-item-text">{{ $t('button.delete_issue') }}</span>
+      </md-list-item>
+    </md-list>
+
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="showDialog = false">{{ $t('button.close') }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+</div>

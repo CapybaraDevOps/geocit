@@ -1,0 +1,41 @@
+<div id="registration-submit">
+  <form novalidate class="md-layout-row md-gutter">
+	<md-card class="md-flex-50 md-flex-small-100">
+	  <md-card-content>
+		<div class="md-layout-row md-layout-wrap md-gutter">
+		  <div class="md-flex md-flex-small-100">
+			<md-field>
+			  <label for="login">{{ $t('label.login') }}</label>
+
+			  <md-input name="login" id="login" v-model.trim="form.login" disabled/>
+			</md-field>
+		  </div>
+
+		  <div class="md-flex md-flex-small-100">
+			<md-field>
+			  <label for="token">{{ $t('label.submit_token') }}</label>
+
+			  <md-input name="submit_token" id="token" v-model.trim="form.token" disabled/>
+			</md-field>
+		  </div>
+		</div>
+
+		<md-chip class="md-accent error" v-for="err in errors" :key="err">{{ err }}</md-chip>
+	  </md-card-content>
+
+	  <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+
+	  <md-card-actions>
+		<md-button type="button" class="md-primary" to="/">{{ $t('button.cancel') }}</md-button>
+	  </md-card-actions>
+	</md-card>
+  </form>
+
+  <div>
+	<md-button :class="getLangClass('en')" @click="switchLang('en')">EN</md-button>
+
+	<md-button :class="getLangClass('ru')" @click="switchLang('ru')">RU</md-button>
+
+	<md-button :class="getLangClass('uk')" @click="switchLang('uk')">UA</md-button>
+  </div>
+</div>

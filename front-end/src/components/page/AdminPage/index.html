@@ -1,0 +1,97 @@
+<div id="admin-index">
+  <md-app md-mode="reveal">
+    <md-app-toolbar class="md-primary">
+      <!--<md-button class="md-icon-button" @click="menuVisible = !menuVisible">-->
+      <!--<md-icon>menu</md-icon>-->
+      <!--</md-button>-->
+
+      <span class="md-title">{{ $t('label.admin_page') }}</span>
+
+      <div class="md-toolbar-section-end">
+        <md-menu md-size="auto" md-align-trigger>
+          <md-button class="md-icon-button" md-menu-trigger>
+            <md-icon>notifications</md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item>
+              <admin-chat-notifications></admin-chat-notifications>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <md-menu md-size="auto" md-align-trigger v-if="user && user.login">
+          <md-button md-menu-trigger>
+            <md-avatar class="md-small">
+              <img :src="getServerAddress() + '/users/image/' + (user && user.id)" v-if="user && user.image"
+                   id="avatar">
+
+              <md-ripple v-else>{{ user && user.initials }}</md-ripple>
+            </md-avatar>
+
+            {{ user.login }}
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item :to="'/user/' + user.id" v-if="user">
+              {{ $t('button.view_profile') }}
+            </md-menu-item>
+
+            <md-menu-item @click="logout()">{{ $t('button.logout') }}</md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <md-menu md-size="auto" md-align-trigger>
+          <md-button class="md-icon-button" md-menu-trigger>
+            <md-icon>language</md-icon>
+          </md-button>
+
+          <md-tooltip md-direction="bottom">{{ $t('button.choose_lang') }}</md-tooltip>
+
+          <md-menu-content>
+            <md-menu-item :class="getLangClass('en')" @click="switchLang('en')">EN</md-menu-item>
+
+            <md-menu-item :class="getLangClass('ru')" @click="switchLang('ru')">RU</md-menu-item>
+
+            <md-menu-item :class="getLangClass('uk')" @click="switchLang('uk')">UA</md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </md-app-toolbar>
+
+    <md-app-drawer md-permanent="card">
+      <md-toolbar class="md-transparent" md-elevation="0">{{ $t('label.navigation') }}</md-toolbar>
+
+      <md-list>
+        <md-list-item @click="menuVisible = false" to="/">
+          <md-icon>home</md-icon>
+          <span class="md-list-item-text">{{ $t('button.home') }}</span>
+        </md-list-item>
+
+        <md-subheader>{{ $t('label.management') }}</md-subheader>
+        <md-list-item @click="menuVisible = false" to="/admin/users">
+          <md-icon>person</md-icon>
+          <span class="md-list-item-text">{{ $t('label.users') }}</span>
+        </md-list-item>
+        <md-list-item @click="menuVisible = false" to="/admin/issues">
+          <md-icon>place</md-icon>
+          <span class="md-list-item-text">{{ $t('label.issues') }}</span>
+        </md-list-item>
+        <md-subheader>{{ $t('label.other') }}</md-subheader>
+        <md-list-item @click="menuVisible = false" to="/admin/notification">
+          <md-icon>notifications</md-icon>
+          <span class="md-list-item-text">{{ $t('label.notifications') }}</span>
+        </md-list-item>
+        <md-list-item @click="menuVisible = false" to="/admin/messages">
+          <md-icon>message</md-icon>
+
+          <span class="md-list-item-text">{{ $t('label.messages') }}</span>
+        </md-list-item>
+      </md-list>
+    </md-app-drawer>
+
+    <md-app-content>
+      <router-view></router-view>
+    </md-app-content>
+  </md-app>
+</div>

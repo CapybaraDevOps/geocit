@@ -1,0 +1,25 @@
+<div id="auth">
+  <md-tabs md-sync-route :md-active-tab="'tab-' + (getAuthRoute() || 'signIn')" md-dynamic-height>
+	<md-tab id="tab-signIn" :md-label="$t('label.sign_in')" to="/auth/signIn">
+	  <sign-in-form ref="signInForm"></sign-in-form>
+
+	  <sign-in-social></sign-in-social>
+	</md-tab>
+
+	<md-tab id="tab-signUp" :md-label="$t('label.sign_up')" to="/auth/signUp">
+	  <sign-up-form></sign-up-form>
+	</md-tab>
+
+	<md-tab id="tab-passwordRecovery" :md-label="$t('label.recover_password')" to="/auth/passwordRecovery">
+	  <password-recovery-form></password-recovery-form>
+	</md-tab>
+  </md-tabs>
+
+  <div>
+	<md-button :class="getLangClass('en')" @click="switchLang('en')">EN</md-button>
+
+	<md-button :class="getLangClass('ru')" @click="switchLang('ru')">RU</md-button>
+
+	<md-button :class="getLangClass('uk')" @click="switchLang('uk')">UA</md-button>
+  </div>
+</div>

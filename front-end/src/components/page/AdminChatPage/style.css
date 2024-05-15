@@ -1,0 +1,147 @@
+html { height: 100%; }
+body {
+  height:100%;
+  min-height: 100%;
+  background: #000000;
+  color: #FFFFFF;
+  position:relative;
+}
+
+h1{
+  margin: 0px;
+  padding: 20px;
+  text-align: center;
+}
+
+.heighWrapper{
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 250px);
+}
+
+.buttonBack{
+  position: fixed;
+  top: 50px;
+  left: 13px;
+}
+
+.messageBl{
+  width: 60%;
+  height: 100%;
+  margin: auto;
+  overflow-y: scroll;
+  padding: 10px 20px;
+}
+
+.messageList{
+  display: table;
+  position:relative;
+  width: 100%;
+}
+
+.row{
+  display: table-row;
+  height: fit-content;
+}
+
+.innerMes{
+  background: white;
+}
+
+.myMes{
+  float: right;
+  background: #292322;
+  color: white;
+}
+
+.footerBl{
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+}
+
+.messageManagment{
+  width: 60%;
+  margin: auto;
+  padding: 0px 20px;
+}
+
+.messageText{
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  width: 80%;
+}
+
+.messageSend{
+  width: 18%;
+  float: right;
+  margin: 10px 0px;
+  margin-right: 10px;
+}
+
+.md-raised{
+  float: right;
+  width: 90%;
+  margin: 0px;
+}
+
+.messageBack::after{
+  clear: both;
+}
+
+.messageBack::before{
+  clear: both;
+}
+
+#style-6::-webkit-scrollbar {
+  width: 10px;
+}
+
+#style-6::-webkit-scrollbar-thumb {
+  background-color: #999999;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 950px) {
+
+  .messageBl{
+	height: calc(100% - 50px);
+  }
+
+  .messageText{
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 100%;
+	float: none;
+  }
+
+  .messageSend{
+	float: right;
+	width: fit-content;
+	margin: 10px 0px;
+  }
+
+  .messageSend::after{
+	clear: both;
+  }
+
+  .md-raised{
+	float: none;
+  }
+
+  .messageManagment {
+	display: block;
+  }
+  .messageManagment::after {
+	content: "";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+  }
+}

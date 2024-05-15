@@ -1,0 +1,119 @@
+<div id="root">
+  <div id="myModal" class="modal">
+    <div class="modal-wrapper">
+      <div class="modal-content">
+        <form method="post" id="myForm" novalidate class="md-layout-row md-gutter" @submit.prevent="validateData">
+
+          <md-card class="md-flex-50 md-flex-small-100">
+
+            <span class="close" @click="clearForm">&times;</span>
+
+            <md-card-header>
+              <div class="md-title">{{ $t('label.form_title') }}</div>
+            </md-card-header>
+
+            <md-card-content>
+
+              <md-field :class="getValidationClass('title')">
+                <label for="title">{{ $t('label.issue_title') }}</label>
+                <md-input name="title" id="title" :disabled="sending" v-model.trim="form.title"/>
+                <span class="md-error" v-if="!$v.form.title.required">{{ $t('error.req_title') }}</span>
+                <span class="md-error"
+                      v-else-if="!$v.form.title.minLength">{{ $t('error.title_short') }}</span>
+                <span class="md-error"
+                      v-else-if="!$v.form.title.maxLength">{{ $t('error.title_long') }}</span>
+              </md-field>
+
+              <md-field :class="getValidationClass('desc')">
+                <label>{{ $t('label.issue_desc') }}</label>
+                <md-textarea id="desc" v-model.trim="form.desc"></md-textarea>
+                <span class="md-error" v-if="!$v.form.desc.required">{{ $t('error.req_desc') }}</span>
+                <span class="md-error"
+                      v-if="!$v.form.desc.minLength">{{ $t('error.desc_short') }}</span>
+                <span class="md-error"
+                      v-if="!$v.form.desc.maxLength">{{ $t('error.desc_long') }}</span>
+              </md-field>
+
+              <md-field :class="getValidationClass('type')">
+                <label for="type">{{ $t('label.issue_type') }}</label>
+                <md-select id="type" name="type" v-model="form.type">
+                  <md-option v-for="type of types" :key="type.id" :value="type.name">
+                    {{ $t('label.issue_type_' + type.name.toLowerCase()) }}
+                  </md-option>
+                </md-select>
+                <span class="md-error" v-if="!$v.form.type.required">{{ $t('error.req_type') }}</span>
+              </md-field>
+
+              <md-field :class="getValidationClass('image')">
+                <label>{{ $t('label.image') }}</label>
+                <md-file v-model="form.image" accept="image/*" id="uploadImage" @change="previewImage"/>
+                <span class="md-error" v-if="!$v.form.image.required">{{ $t('error.req_image') }}</span>
+              </md-field>
+
+              <img src="" id="preview" hidden>
+
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button type="submit" class="md-raised md-primary" :disabled="sending" id="save">{{ $t('button.create_issue') }}</md-button>
+            </md-card-actions>
+
+          </md-card>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <md-snackbar :md-duration=5000 :md-active.sync="showSnackBar" md-persistent>
+    <span>{{ $t('message.snackbar') }}</span>
+    <md-button class="md-primary" @click="snackBarAction()">{{ $t('button.snackbar_redirect') }}</md-button>
+  </md-snackbar>
+
+  <div id="map"></div>
+
+
+  <md-dialog :md-active.sync="showDialog" @md-closed="onCancelIssuesDialog" :md-fullscreen="false"
+             class="issuesByMarker">
+    <md-dialog-title>
+      {{ $t('label.issues_modal_title') }}
+      <span class="close1" @click="showDialog = false">&times;</span>
+    </md-dialog-title>
+    <md-dialog-content>
+      <div v-for="issue in issues" :key="issue.id">
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item md-size-65">
+            <a @click="redirectToIssue(issue.id, activeMarker)">
+              <h2>{{ issue.title }}</h2>
+            </a>
+            <p>{{issue.description.substring(0,20)}}...</p>
+          </div>
+          <div class="md-layout-item md-size-35">
+            <div class="logo">
+              <div v-if="issue.typeId===1">
+                <div style="text-align: center">
+                  <img src="./static/caution-large.png" width="50px" height="50px">
+                </div>
+                <div style="text-align: center">{{ $t('label.issue_type_problem') }}</div>
+              </div>
+              <div v-else-if="issue.typeId===2">
+                <div style="text-align: center">
+                  <img src="./static/info-large.png" width="50px" height="50px">
+                </div>
+                <div style="text-align: center">{{ $t('label.issue_type_info') }}</div>
+              </div>
+              <div v-else-if="issue.typeId===3">
+                <div style="text-align: center">
+                  <img src="./static/feedback-large.png" width="50px" height="50px">
+                </div>
+                <div style="text-align: center">{{ $t('label.issue_type_feedback') }}</div>
+              </div>
+            </div>
+          </div>
+          <hr align="center" width="100%" size="2" color="grey">
+        </div>
+      </div>
+    </md-dialog-content>
+  </md-dialog>
+
+</div>
+
