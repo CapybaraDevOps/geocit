@@ -95,7 +95,7 @@ sudo systemctl start tomcat
 git clone https://github.com/CapybaraDevOps/geocit.git
 
 # Create .env file in script
-#cat << EOF > ~/geocit/.env
+#cat << EOF > ~/.env
 #
 #EOF
 
@@ -120,9 +120,9 @@ while IFS='=' read -r key value; do
         value=$(echo "$value" | xargs)
 
         sed -i "s|^\($key *= *\).*|\1$value|" "$app_prop"
-done < ~/geocit/.env
+done < ~/.env
 
-rm -rf ~/geocit/.env
+rm -rf ~/.env
 
 # Build the application
 cd ~/geocit
