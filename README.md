@@ -35,3 +35,46 @@ to generate the production build you have to
 # Geocitizen
 >>>>>>> a3175f1c0fdab76be1cea3be0ec00b86a68e345b
 # geocit
+
+## Setup
+
+### 1. Environment Variables
+
+First, create a `.env` file in the root directory of your project of your user and add the following environment variables:
+```
+# Postgres DB
+db.url 			= jdbc:postgresql://localhost:5432/ss_demo_1
+db.username 	= postgres
+db.password 	= postgres
+# Postgres liquibase
+url 			= jdbc:postgresql://localhost:5432/ss_demo_1
+username 		= postgres
+password 		= postgres
+# SMTP
+email.username 	=
+email.password 	=
+# Google Maps
+map.key 		=
+```
+
+### 2. Startup Script
+
+Use the `startup.sh` script to build and start the application. This script performs the following tasks:
+
+- Install OpenJDK 8 and Maven
+- Install Postgres and configure it (if needed)
+- Install Node 14 (if needed)
+- Install Tomcat
+- Clone the application repository
+- Get the IP address of the VM and replace `localhost` with it in the configuration files
+- Substitute environment variables in `application.properties`
+- Build the application
+
+To run the script, use the following command:
+`bash startup.sh`
+
+### Important Note
+If you already have a Postgres database created, comment out all lines in the script under the section `# Install Postgres and configure (if needed)`. Additionally, ensure the .env file is updated with the proper values for your existing database.
+
+### Usage
+Once the setup is complete, the application will be up and running on your local host. You can access it using the IP address of your VM.
