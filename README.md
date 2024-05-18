@@ -39,7 +39,7 @@ to generate the production build you have to
 
 ### 1. Environment Variables
 
-First, create a `.env` file in the root directory of your project of your user and add the following environment variables:
+First, create a `.env` file in the root directory of your project and add the following environment variables:
 ```
 # Postgres DB
 db.url 			= jdbc:postgresql://localhost:5432/ss_demo_1
