@@ -90,9 +90,12 @@ git clone https://github.com/CapybaraDevOps/geocit.git
 app_prop=~/geocit/src/main/resources/application.properties
 app_js=~/geocit/src/main/webapp/static/js/app.*.js
 ip=$(ip a | grep -oE "\b192\.168\.([0-9]{1,3})\.([0-9]{1,3})\b" | head -n 1)
+ip_db=$(echo "$ip" | awk -F'.' '{print $1"."$2"."$3"."$4+1}')
 echo $ip
+echo $ip_db
 
 sed -i "s/localhost:8080/$ip:8080/g" $app_prop
+sed -i "s/localhost:5432/$ip_db:5432/g" $app_prop
 sed -i "s/localhost/$ip/g" $app_js
 
 # Substitute environment variables in application.properties
