@@ -421,9 +421,6 @@ export default {
           infoWindow.close();
         }, 2000);
 
-        // http://localhost:8080/citizen/map/issue?markerId=1&title=хуйхуйхуйх&desc=йцукенйцукен&typeName=INFO
-
-
         this.$http.post('map/issue', {
           markerId: window.id,
           title: title,
