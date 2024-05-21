@@ -83,3 +83,14 @@ If you already have a Postgres database created, comment out all lines in the sc
 
 ### Usage
 Once the setup is complete, the application will be up and running on your local host. You can access it using the IP address of your VM.
+
+### Main versioning changes
+
+social.facebook.version 3.0.0.M3 -> 2.0.3.RELEASE
+servlet-api -> javax.servlet-api
+front-end/.nvmrc
+v14.17.6
+vue-material ^1.0.0-beta-7 -> ^1.0.0-beta-15
+
+### Port changes
+mail.smtp.port 465 -> 587
